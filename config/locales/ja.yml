@@ -194,3 +194,10 @@ ja:
     new:
       title: "新しい本"
       link_books: "本一覧へ戻る"
+    show:
+      link_edit: "本を編集する"
+      link_books: "本一覧へ戻る"
+      button_destroy: "本を削除する"
+    edit:
+      link_book: "この本について"
+      link_books: "本一覧へ戻る"
