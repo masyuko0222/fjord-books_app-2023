@@ -182,15 +182,15 @@ ja:
       short: "%m/%d %H:%M"
     pm: 午後
   books:
-    index:
-      title: "本一覧"
-      link_book: "この本について"
-      link_new: "新規追加"
-    book:
+    book: #_bookパーシャルファイル
       title: "タイトル"
       memo: "メモ"
       author: "著者"
       picture: "写真"
+    index:
+      title: "本一覧"
+      link_book: "この本について"
+      link_new: "新規追加"
     new:
       title: "新しい本"
       link_books: "本一覧へ戻る"
