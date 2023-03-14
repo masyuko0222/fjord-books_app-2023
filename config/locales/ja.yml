@@ -199,6 +199,7 @@ ja:
       link_books: "本一覧へ戻る"
       button_destroy: "本を削除する"
     edit:
+      title: "本の編集"
       link_book: "この本について"
       link_books: "本一覧へ戻る"
     create:
