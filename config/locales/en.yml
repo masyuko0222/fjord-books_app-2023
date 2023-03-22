@@ -1,6 +1,14 @@
 ---
 en:
   activerecord:
+    models:
+    book: "book"
+  attributes:
+    book:
+      title: "Title"
+      memo: "Memo"
+      author: "Author"
+      picture: "Picture"
     errors:
       messages:
         record_invalid: 'Validation failed: %{errors}'
