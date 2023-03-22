@@ -223,3 +223,25 @@ en:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: pm
+  books:
+    index:
+      title: "Books"
+      link_book: "About this book"
+      link_new: "New book"
+    new:
+      title: "New book"
+      link_books: "Back to books"
+    show:
+      link_edit: "Edit this book"
+      link_books: "Back to books"
+      button_destroy: "Delete this book"
+    edit:
+      title: "Edit book"
+      link_book: "About this book"
+      link_books: "Back to books"
+    create:
+      message: "Successfully created a book"
+    update:
+      message: "Successfully updated a book"
+    destroy:
+      message: "Successfully deleted a book"
