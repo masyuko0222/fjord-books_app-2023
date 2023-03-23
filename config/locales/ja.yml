@@ -205,7 +205,10 @@ ja:
       title: "本の編集"
       link_book: "この本について"
       link_books: "本一覧へ戻る"
-  notice:
-    create: "本の作成に成功しました"
-    update: "本の更新に成功しました"
-    destroy: "本の削除に成功しました"
+    create:
+      method: "作成"
+    update:
+      method: "更新"
+    destroy:
+      method: "削除"
+  crudmessage: "本の%{method}に成功しました"
