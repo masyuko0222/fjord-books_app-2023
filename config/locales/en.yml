@@ -15,6 +15,10 @@ en:
         restrict_dependent_destroy:
           has_one: Cannot delete record because a dependent %{record} exists
           has_many: Cannot delete record because dependent %{record} exist
+  crudmessage:
+    create: "Successfully create a %{model}"
+    update: "Successfully update a %{model}"
+    destroy: "Successfully delete a %{model}"
   date:
     abbr_day_names:
     - Sun
@@ -239,10 +243,3 @@ en:
       title: "Edit book"
       link_book: "About this book"
       link_books: "Back to books"
-    create:
-      method: "create"
-    update:
-      method: "update"
-    destroy:
-      method: "delete"
-  crudmessage: "Successfully %{method} a book"
