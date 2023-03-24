@@ -15,6 +15,10 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+  crudmessage:
+    create: "%{model}の作成に成功しました"
+    update: "%{model}の更新に成功しました"
+    destroy: "%{model}の削除に成功しました"
   date:
     abbr_day_names:
     - 日
@@ -211,4 +215,3 @@ ja:
       method: "更新"
     destroy:
       method: "削除"
-  crudmessage: "本の%{method}に成功しました"
