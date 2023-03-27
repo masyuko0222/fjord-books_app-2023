@@ -18,5 +18,10 @@ module BooksApp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    #ログアウト後のリダイレクト先
+    def after_sign_out_path_for(resource_or_scope)
+      new_user_session_path
+    end
   end
 end
