@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   # 郵便番号・住所・自己紹介の制限
-  varidates :post_code, presence: true
-  varidates :address, presence: true
-  varidates :introduction, length: { maximum: 300 }
+  validates :post_code, presence: true
+  validates :address, presence: true
+  validates :introduction, length: { maximum: 300 }
 end
