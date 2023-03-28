@@ -3,4 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
+  # 郵便番号・住所・自己紹介の制限
+  varidates :post_code, presence: true
+  varidates :address, presence: true
+  varidates :introduction, length: { maximum: 300 }
 end
