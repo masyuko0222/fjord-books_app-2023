@@ -2,6 +2,10 @@
 
 <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
 
+<nav class="page-nav">
+  <%= button_to "本一覧へ", books_path, method: :get %>
+</nav>
+
 <h1>All users</h1>
 
 <div id="users" class="index-users">
