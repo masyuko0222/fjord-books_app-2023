@@ -13,7 +13,8 @@
   <body class="<%= params[:action] %>">
     <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
     <%= link_to 'ユーザー一覧へ', users_path %>|
-    <%= link_to 'マイプロフィール', user_path(current_user.id) %>
+    <%= link_to 'マイプロフィール', user_path(current_user.id) %>|
+    <%= link_to 'プロフィールの編集', edit_user_registration_path %>
     <%= yield %>
   </body>
 </html>
