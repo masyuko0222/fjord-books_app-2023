@@ -1,7 +1,5 @@
 <p style="color: green"><%= notice %></p>
 
-<%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
-
 <h1><%= t('views.common.title_index', name: i18n_pluralize(Book.model_name.human)) %></h1>
 
 <div id="books" class="index-items">
