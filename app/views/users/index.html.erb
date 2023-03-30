@@ -1,5 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
+<%= button_to 'マイプロフィール', user_path(current_user.id), method: :get %>
+
 <h1>All users</h1>
 
 <div id="users" class="index-users">
