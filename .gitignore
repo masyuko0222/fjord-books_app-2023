@@ -37,3 +37,6 @@
 /public/uploads
 
 .env
+
+# migrate
+/db/migrate
