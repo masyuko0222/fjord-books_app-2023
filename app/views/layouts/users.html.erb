@@ -11,8 +11,6 @@
   </head>
 
   <body class="<%= params[:action] %>">
-    <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
     <%= yield %>
-    <%= link_to "戻る", :back %>
   </body>
 </html>

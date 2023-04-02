@@ -185,6 +185,7 @@ ja:
     common:
       show: "この%{name}を表示"
       edit: "この%{name}を編集"
+      edit_me: "マイプロフィールを編集"
       destroy: "この%{name}を削除"
       new: "%{name}の新規作成"
       back: "%{name}の一覧に戻る"

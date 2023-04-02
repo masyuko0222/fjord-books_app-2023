@@ -1,6 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
-<%= link_to t('views.common.title_index', name: Book.model_name.human), books_path %>
+<%= link_to t('views.common.title_index', name: Book.model_name.human), books_path %>|
+<%= link_to t('views.common.edit_me'), edit_user_registration_path %>
 
 <h1><%= t('views.common.title_index', name: User.model_name.human) %></h1>
 
