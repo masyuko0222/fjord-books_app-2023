@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   def index
     @users = User.order('id DESC').page(params[:page]).per(4)
