@@ -36,6 +36,4 @@
 
 /public/uploads
 
-/db/migrate/*
-
 .env
