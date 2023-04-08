@@ -6,4 +6,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "books#index"
+
+  # letter_opener_web routing
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end
