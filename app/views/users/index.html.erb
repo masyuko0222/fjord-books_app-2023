@@ -1,11 +1,11 @@
-<h1>Users</h1>
+<h1><%= t('views.common.title_index', name: User.model_name.human) %></h1>
 
 <div id="users" class="index-items">
   <% @users.each do |user| %>
     <div class="index-item">
       <%= render user %>
       <p>
-        <%= link_to 'Profile', user %>
+        <%= link_to "#{User.human_attribute_name(:profile)}", user %>
       </p>
     </div>
   <% end %>

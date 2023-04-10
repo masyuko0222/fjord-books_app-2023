@@ -11,11 +11,14 @@
   </head>
 
   <body class="<%= params[:action] %>">
+    <% if request.path.start_with?('/users') %>
+      <p><%= link_to t('views.common.title_index', name: Book.model_name.human), books_path %></p>
+    <% end %>
     <% if user_signed_in? %>
-      <p>User: <%= current_user.email %></p>
-      <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
-      <%= link_to 'All Users', users_path %>
-      <%= link_to 'My Profile', user_path(current_user) %>
+      <p><%= User.model_name.human %>: <%= current_user.email %></p>
+      <%= button_to t('views.common.logout'), destroy_user_session_path, method: :delete %>
+      <%= link_to t('views.common.title_index', name: i18n_pluralize(User.model_name.human)), users_path %>
+      <%= link_to t('views.common.show_me', name: User.human_attribute_name(:profile)), user_path(current_user) %>
     <% end %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
