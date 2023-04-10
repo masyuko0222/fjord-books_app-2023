@@ -44,9 +44,9 @@ end
 
 50.times do |n|
   User.create!(
-    email: "user#{n+1}@example.com",
-    password: "password",
-    password_confirmation: "password"
+    email: "user#{n + 1}@example.com",
+    password: 'password',
+    password_confirmation: 'password'
   )
 end
 
