@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_07_141429) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_16_104839) do
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.text "memo"
@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_07_141429) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "zipcode"
+    t.string "zipcode"
     t.string "address"
     t.text "profile"
     t.index ["email"], name: "index_users_on_email", unique: true
