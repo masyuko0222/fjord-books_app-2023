@@ -25,11 +25,6 @@ ja:
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
-        zipcode: 郵便番号
-        address: 住所
-        profile: プロフィール
-    models:
-      user: ユーザー
   users:
     confirmations:
       confirmed: メールアドレスが確認できました。
