@@ -3,9 +3,9 @@
   <%= render @user %>
 </div>
 
-<nav class="page-nav">
-  <% if @user == current_user %>
+<% if @user == current_user %>
+  <nav class="page-nav">
     <%= link_to t('views.common.edit', name: User.model_name.human), edit_user_registration_path %>
     <%= link_to t('views.common.destroy', name: User.model_name.human), user_registration_path, data: { confirm: t('views.common.delete_confirm') }, method: :delete %>
-  <% end %>
-</nav>
+  </nav>
+<% end %>
