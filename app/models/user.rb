@@ -9,4 +9,5 @@ class User < ApplicationRecord
   end
 
   has_many :reports
+  has_many :comments
 end
