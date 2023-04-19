@@ -1,0 +1,11 @@
+<h1><%= User.human_attribute_name(:profile) %></h1>
+<div class="show-idem">
+  <%= render @user %>
+</div>
+
+<% if @user == current_user %>
+  <nav class="page-nav">
+    <%= link_to t('views.common.edit', name: User.model_name.human), edit_user_registration_path %>
+    <%= link_to t('views.common.destroy', name: User.model_name.human), user_registration_path, data: { confirm: t('views.common.delete_confirm') }, method: :delete %>
+  </nav>
+<% end %>

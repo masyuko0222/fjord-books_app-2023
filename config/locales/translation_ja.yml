@@ -2,10 +2,15 @@ ja:
   activerecord:
     models:
       book: 本
-
+      user: ユーザー
     attributes:
       book:
         author: 著者
         memo: メモ
         picture: 画像
         title: タイトル
+      user:
+        email: Eメール
+        zipcode: 郵便番号
+        address: 住所
+        profile: プロフィール
