@@ -1,12 +1,12 @@
 <h1><%= t('views.common.title_show', name: Book.model_name.human) %></h1>
 
 <div class="show-item">
-  <%= render partial: 'books/book', locals: {book: @book} %>
+  <%= render partial: 'books/book', locals: { book: @book } %>
 </div>
 
 <div>
   <h2>New Comment</h2>
-    <%= render 'comments/form', commentable: @book, comment: @comment %>
+    <%= render partial: 'comments/form', locals: { commentable: @book, comment: @comment } %>
 </div>
 
 <nav class="page-nav">
