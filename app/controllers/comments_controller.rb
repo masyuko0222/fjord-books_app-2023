@@ -8,8 +8,8 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to @commentable, notice: "Comment was sucessfully created."
     else
-      flash.now[:alert] = "Comment couldn't be created. Please check the errors below."
-      render 'books/show'
+      @book = @commentable
+      render template: 'books/show', status: :unprocessable_entity
     end
   end
 
