@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
-      redirect_to @commentable, notice: "Comment was sucessfully created."
+      redirect_to @commentable, notice: t('controllers.common.notice_create', name: Comment.model_name.human)
     else
       @book = @commentable
       render template: 'books/show', status: :unprocessable_entity
