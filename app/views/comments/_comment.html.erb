@@ -10,15 +10,22 @@
       <%= comment.user.email %>
     </p>
   <% end %>
-  
+
   <p>
     <strong><%= Comment.human_attribute_name(:content) %>:</strong>
     <%= comment.content %>
   </p>
-  
+
   <p>
     <strong><%= Comment.human_attribute_name(:created_at) %>:</strong>
     <%= l comment.created_at, format: :long %>
   </p>
+
+  <p>
+    <% if comment.user.id == current_user.id %>
+      <%=button_to t('views.common.destroy', name: Comment.model_name.human.downcase), book_comment_path(comment.commentable_id, comment.id), method: :delete %>
+    <% end %>
+  </p>
+
   </br>
 </div>

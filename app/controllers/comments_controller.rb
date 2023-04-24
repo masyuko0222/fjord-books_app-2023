@@ -13,6 +13,12 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    Comment.find(params[:id]).destroy
+
+    redirect_to @commentable, notice: t('controllers.common.notice_destroy', name: Comment.model_name.human)
+  end
+
   private
 
   def comment_params
