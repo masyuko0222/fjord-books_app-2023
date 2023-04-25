@@ -1,16 +1,28 @@
 <h1><%= t('views.common.title_show', name: Report.model_name.human) %></h1>
 
 <div class="show-item">
-  <%= render @report %>
+  <%= render partial: 'reports/report', locals: { report: @report } %>
+</div>
+
+<div>
+  <% if @comments.empty? %>
+    <h2><%= t('views.common.not_exist', name: i18n_pluralize(Comment.model_name.human)) %></h2>
+  <% else %>
+    <h2><%= t('views.common.title_index', name: i18n_pluralize(Comment.model_name.human)) %></h2>
+    <% @comments.each do |comment| %>
+      <%= render partial: 'comments/comment', locals: { comment: comment } %>
+    <% end %>
+  <% end %>
+</div>
+
+<div>
+  <h2><%= t('views.common.title_new', name: Comment.model_name.human.downcase) %></h2>
+    <%= render partial: 'comments/form', locals: { commentable: @report, comment: @comment } %>
 </div>
 
 <nav class="page-nav">
-  <% if @report.user.id == current_user.id %>
-    <%= link_to t('views.common.edit', name: Report.model_name.human.downcase), edit_report_path(@report) %> |
-  <% end %>
+  <%= link_to t('views.common.edit', name: Report.model_name.human.downcase), edit_report_path(@report) %> |
   <%= link_to t('views.common.back', name: i18n_pluralize(Report.model_name.human.downcase)), reports_path %>
 
-  <% if @report.user.id == current_user.id %>
-    <%= button_to t('views.common.destroy', name: Report.model_name.human.downcase), @report, method: :delete %>
-  <% end %>
+  <%= button_to t('views.common.destroy', name: Report.model_name.human.downcase), @report, method: :delete %>
 </nav>
