@@ -10,7 +10,7 @@
   <% else %>
     <h2><%= t('views.common.title_index', name: i18n_pluralize(Comment.model_name.human)) %></h2>
     <% @comments.each do |comment| %>
-      <%= render partial: 'comments/comment', locals: { comment: comment } %>
+      <%= render partial: 'comments/comment', locals: { commentable: @book, comment: comment } %>
     <% end %>
   <% end %>
 </div>
