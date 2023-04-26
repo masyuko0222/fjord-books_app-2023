@@ -5,19 +5,11 @@
 </div>
 
 <div>
-  <% if @comments.empty? %>
-    <h2><%= t('views.common.not_exist', name: i18n_pluralize(Comment.model_name.human)) %></h2>
-  <% else %>
-    <h2><%= t('views.common.title_index', name: i18n_pluralize(Comment.model_name.human)) %></h2>
-    <% @comments.each do |comment| %>
-      <%= render partial: 'comments/comment', locals: { commentable: @book, comment: comment } %>
-    <% end %>
-  <% end %>
+  <%= render partial: 'comments/comments', locals: { comments: @comments, commentable: @book } %>
 </div>
 
 <div>
-  <h2><%= t('views.common.title_new', name: Comment.model_name.human.downcase) %></h2>
-    <%= render partial: 'comments/form', locals: { commentable: @book, comment: @comment } %>
+  <%= render partial: 'comments/form', locals: { comment: @comment, commentable: @book } %>
 </div>
 
 <nav class="page-nav">

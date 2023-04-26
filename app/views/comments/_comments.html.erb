@@ -1,0 +1,37 @@
+<div>
+  <% if comments.any? %>
+    <h2><%= t('views.common.title_index', name: i18n_pluralize(Comment.model_name.human)) %></h2>
+      <% comments.each do |comment| %>
+        <% if comment.user.name.present? %>
+          <p>
+            <strong><%= User.human_attribute_name(:name) %>:</strong>
+            <%= comment.user.name %>
+          </p>
+        <% else%>
+          <p>
+            <strong><%= User.human_attribute_name(:email) %>:</strong>
+            <%= comment.user.email %>
+          </p>
+        <% end %>
+
+        <p>
+          <strong><%= Comment.human_attribute_name(:content) %>:</strong>
+          <%= comment.content %>
+        </p>
+
+        <p>
+          <strong><%= Comment.human_attribute_name(:created_at) %>:</strong>
+          <%= l comment.created_at, format: :long %>
+        </p>
+
+        <p>
+          <% if comment.user.id == current_user.id %>
+            <%=button_to t('views.common.destroy', name: Comment.model_name.human.downcase), polymorphic_path([commentable, comment]), method: :delete %>
+          <% end %>
+        </p>
+        <% end %>
+
+  <% else %>
+    <h2><%= t('views.common.not_exist', name: i18n_pluralize(Comment.model_name.human)) %></h2>
+  <% end %>
+</div>
