@@ -8,8 +8,9 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to @commentable, notice: t('controllers.common.notice_create', name: Comment.model_name.human)
     else
-      # Books#showのComment.newで生成された、空のインスタンスが残ってしまっているため、rejectで除外する。
-      @comments = @commentable.comments.reject { |comment| comment.id.nil? }
+      # Books#showのComment.newで生成された、空のインスタンスが残ってしまっているためreloadする。
+      @comments = @commentable.reload.comments
+
       render_commentable_show
     end
   end
