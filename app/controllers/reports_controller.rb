@@ -58,9 +58,9 @@ class ReportsController < ApplicationController
   end
 
   def correct_user
-    unless current_user == @report.user
-      redirect_to root_path
-    end
+    return if current_user == @commentable.user
+
+    redirect_to root_path
   end
 
   # Only allow a list of trusted parameters through.
