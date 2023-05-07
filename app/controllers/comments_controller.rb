@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
+  # 拡張性を持たせるために、before_destroyではなく、before_actionを利用している。
+  before_action :set_commentable_and_check_user, only: %i[destroy]
+
   def create
     @comment = @commentable.comments.build(comment_params)
     @comment.user = current_user
@@ -22,6 +25,18 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def set_commentable_and_check_user
+    # 各モデル配下のコントローラでcommentableをセットしています。
+    set_commentable
+    correct_user
+  end
+
+  def correct_user
+    return if current_user == @commentable.user
+
+    redirect_to root_path
+  end
 
   def comment_params
     params.require(:comment).permit(:content)
