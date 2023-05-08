@@ -58,7 +58,7 @@ class ReportsController < ApplicationController
   end
 
   def correct_user
-    return if current_user == @commentable.user
+    return if current_user == @report.user
 
     redirect_to root_path
   end
