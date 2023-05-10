@@ -183,6 +183,7 @@ ja:
     pm: 午後
   views:
     common:
+      not_exist: "%{name}は存在しません"
       show: "この%{name}を表示"
       edit: "この%{name}を編集"
       destroy: "この%{name}を削除"
