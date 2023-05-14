@@ -46,7 +46,7 @@ class ReportsController < ApplicationController
 
   private
 
-  REPORT_ID_REGEXP = /http:\/\/localhost:3000\/reports\/(\d+)/.freeze
+  REPORT_ID_REGEXP = %r{http://localhost:3000/reports/(\d+)}
 
   def set_report
     @report = current_user.reports.find(params[:id])
@@ -56,16 +56,12 @@ class ReportsController < ApplicationController
     params.require(:report).permit(:title, :content)
   end
 
-
   def add_records_to_mentions_table(report)
     report.mentioning_reports.destroy_all if report.mentioning_reports.any?
 
     scan_mentioning_report_ids(report).each do |id|
       mentioning_report = Report.find(id)
-
-      unless report.mentioning_reports.include?(mentioning_report)
-        report.mentioning_reports << mentioning_report
-      end
+      report.mentioning_reports << mentioning_report unless report.mentioning_reports.include?(mentioning_report)
     end
   end
 
