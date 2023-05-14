@@ -4,9 +4,9 @@ class Report < ApplicationRecord
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
 
-  has_many :from_relationships, class_name: 'Mention', foreign_key: 'mention_from_id', dependent: :destroy
+  has_many :from_relationships, class_name: 'Mention', foreign_key: 'mention_from_id', dependent: :destroy, inverse_of: :mention_from
   has_many :mentioning_reports, through: :from_relationships, source: :mention_to
-  has_many :to_relationships, class_name: 'Mention', foreign_key: 'mention_to_id', dependent: :destroy
+  has_many :to_relationships, class_name: 'Mention', foreign_key: 'mention_to_id', dependent: :destroy, inverse_of: :mention_to
   has_many :mentioned_reports, through: :to_relationships, source: :mention_from
 
   validates :title, presence: true
