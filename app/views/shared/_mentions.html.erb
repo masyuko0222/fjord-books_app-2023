@@ -1,6 +1,6 @@
 <div class="mentions-container">
   <% if @report.mentioned_reports.any? %>
-    <strong>この日報は以下の日報からリンクされています</strong>
+    <strong><%= t('views.common.mentioned_index', report: Report.model_name.human, mention: Mention.model_name.human) %></strong>
     <ul>
       <% @report.mentioned_reports.each do |report| %>
         <li>
