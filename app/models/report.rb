@@ -24,26 +24,26 @@ class Report < ApplicationRecord
   end
 
   def save_with_mentioning_reports
-    self.save
-    self.add_records_of_mentioning_reports
+    save
+    add_records_of_mentioning_reports
   end
 
   def update_with_mentioning_reports(report_params)
-    self.update(report_params)
-    self.add_records_of_mentioning_reports
+    update(report_params)
+    add_records_of_mentioning_reports
   end
 
   def add_records_of_mentioning_reports
-    self.mentioning_reports.destroy_all if self.mentioning_reports.any?
+    mentioning_reports.destroy_all if mentioning_reports.any?
 
     scan_mentioning_report_ids.each do |id|
       mentioning_report = Report.find(id)
-      self.mentioning_reports << mentioning_report unless self.mentioning_reports.include?(mentioning_report)
+      mentioning_reports << mentioning_report unless mentioning_reports.include?(mentioning_report)
     end
   end
 
   def scan_mentioning_report_ids
-    ids = self.content.scan(REPORT_ID_REGEXP).flatten
+    ids = content.scan(REPORT_ID_REGEXP).flatten
 
     ids.map(&:to_i)
   end
