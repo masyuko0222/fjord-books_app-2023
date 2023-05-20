@@ -6,7 +6,7 @@
 
 <%= render 'shared/comments', commentable: @report %>
 
-<%= render 'shared/mentions', locals: { report: @report } %>
+<%= render 'shared/mentions', report: @report %>
 
 <nav class="page-nav">
   <% if @report.editable?(current_user) %>
