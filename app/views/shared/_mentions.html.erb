@@ -4,7 +4,7 @@
     <ul>
       <% report.mentioned_reports.order(:id).each do |mentioned_report| %>
         <li>
-          <%= link_to mentioned_report.title, report %>
+          <%= link_to mentioned_report.title, mentioned_report %>
         </li>
       <% end %>
     </ul>
