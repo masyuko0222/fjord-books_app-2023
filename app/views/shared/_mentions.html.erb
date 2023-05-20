@@ -1,10 +1,10 @@
 <div class="mentions-container">
-  <% if @report.mentioned_reports.any? %>
+  <% if report.mentioned_reports.any? %>
     <strong><%= t('views.common.mentioned_index', report: Report.model_name.human, mention: Mention.model_name.human) %></strong>
     <ul>
-      <% @report.mentioned_reports.each do |report| %>
+      <% report.mentioned_reports.order(:id).each do |mentioned_report| %>
         <li>
-          <%= link_to report.title", report %>
+          <%= link_to mentioned_report.title, report %>
         </li>
       <% end %>
     </ul>
