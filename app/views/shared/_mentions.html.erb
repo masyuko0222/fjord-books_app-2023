@@ -1,6 +1,6 @@
 <div class="mentions-container">
   <% if report.mentioned_reports.any? %>
-    <strong><%= t('views.common.mentioned_index', report: Report.model_name.human, mention: Mention.model_name.human) %></strong>
+    <strong><%= t('views.mention.index', report: Report.model_name.human, mention: Mention.model_name.human) %></strong>
     <ul>
       <% report.mentioned_reports.order(:id).each do |mentioned_report| %>
         <li>
