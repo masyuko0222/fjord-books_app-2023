@@ -196,8 +196,8 @@ ja:
       validation_error: "%{errors}があるため、この%{name}は保存できませんでした"
       title_show: "%{name}の詳細"
       sign_out: ログアウト
-    mention:
-      index: "この%{report}は、以下の%{report}からメンションされています"
+    shared:
+      mentions: "この%{report}は、以下の%{report}からメンションされています"
     pagination:
       first: '« 最初'
       last: '最後 »'
