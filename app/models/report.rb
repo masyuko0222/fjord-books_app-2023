@@ -28,7 +28,7 @@ class Report < ApplicationRecord
   end
 
   def update_with_mentioning_reports(report_params)
-    mentioning_reports.destroy_all if mentioning_reports.any?
+    mentioning_reports.destroy_all
     !!(update(report_params) && add_mentioning_reports)
   end
 
