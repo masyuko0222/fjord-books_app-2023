@@ -33,9 +33,8 @@ class Report < ApplicationRecord
   end
 
   def add_mentioning_reports
-    scan_mentioning_report_ids.each do |id|
-      mentioning_report = Report.find(id)
-      mentioning_reports << mentioning_report
+    Report.where(id: scan_mentioning_report_ids).each do |report|
+      mentioning_reports << report
     end
   end
 
