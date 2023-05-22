@@ -197,7 +197,8 @@ ja:
       title_show: "%{name}の詳細"
       sign_out: ログアウト
     shared:
-      mentions: "この%{report}は、以下の%{report}からメンションされています"
+      mentions:
+        index: "この%{report}は、以下の%{report}からメンションされています"
     pagination:
       first: '« 最初'
       last: '最後 »'
