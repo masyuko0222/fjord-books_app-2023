@@ -24,18 +24,24 @@ class Report < ApplicationRecord
   end
 
   def save_with_mentioning_reports
-    !!(save && add_mentioning_reports)
+    Report.transaction do
+      save!
+      save_mentioning_reports
+    end
   end
 
   def update_with_mentioning_reports(report_params)
-    mentioning_reports.destroy_all
-    !!(update(report_params) && add_mentioning_reports)
+    Report.transaction do
+      mentioning_reports.destroy_all
+      update!(report_params)
+      save_mentioning_reports
+    end
   end
 
-  def add_mentioning_reports
-    Report.where(id: scan_mentioning_report_ids).each do |report|
-      mentioning_reports << report
-    end
+  def save_mentioning_reports
+    new_mentioning_reports = Report.where(id: scan_mentioning_report_ids)
+
+    mentioning_reports.concat(new_mentioning_reports)
   end
 
   def scan_mentioning_report_ids
