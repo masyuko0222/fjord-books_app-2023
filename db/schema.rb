@@ -60,8 +60,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_12_111800) do
   end
 
   create_table "mentions", force: :cascade do |t|
-    t.integer "mention_from_id"
-    t.integer "mention_to_id"
+    t.integer "mention_from_id", null: false
+    t.integer "mention_to_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["mention_from_id", "mention_to_id"], name: "index_mentions_on_mention_from_id_and_mention_to_id", unique: true
