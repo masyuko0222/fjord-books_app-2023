@@ -30,9 +30,8 @@ class Report < ApplicationRecord
       save!
       record_mentioning_reports!
     end
-
-    rescue ActiveRecord::RecordInvalid
-      false
+  rescue ActiveRecord::RecordInvalid
+    false
   end
 
   def update_with_mentioning_reports(report_params)
@@ -41,10 +40,11 @@ class Report < ApplicationRecord
       update!(report_params)
       record_mentioning_reports!
     end
-
-    rescue ActiveRecord::RecordInvalid
-      false
+  rescue ActiveRecord::RecordInvalid
+    false
   end
+
+  private
 
   def record_mentioning_reports!
     fetch_mentioning_reports.each do |mentioning_report|
@@ -57,5 +57,4 @@ class Report < ApplicationRecord
     scanned_ids = content.scan(REPORT_ID_REGEXP).flatten.map(&:to_i).uniq
     Report.where(id: scanned_ids)
   end
-
 end
