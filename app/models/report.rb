@@ -26,30 +26,34 @@ class Report < ApplicationRecord
   # self.invalid?でtransactionブロックに入る前にバリデーションの検証ができるが、
   # 業務エラーより、重要なエラーであるシステムエラーの検知を先に優先するべきなので、バリデーションエラーはrescueで最後に拾い上げる実装にした。
   def save_with_mentioning_reports
+    result_to_save = true
+
     transaction do
-      save!
-      record_mentioning_reports!
+      result_to_save = save && create_new_mentions
+      raise ActiveRecord::Rollback, false unless result_to_save
     end
-  rescue ActiveRecord::RecordInvalid
-    false
+
+    result_to_save
   end
 
   def update_with_mentioning_reports(report_params)
+    result_to_save = true
+
     transaction do
       mentioning_reports.destroy_all
-      update!(report_params)
-      record_mentioning_reports!
+      result_to_save = update(report_params) && create_new_mentions
+      raise ActiveRecord::Rollback, false unless result_to_save
     end
-  rescue ActiveRecord::RecordInvalid
-    false
+
+    result_to_save
   end
 
   private
 
-  def record_mentioning_reports!
+  def create_new_mentions
     fetch_mentioning_reports.each do |mentioning_report|
       new_mention = Mention.new(mention_from_id: id, mention_to_id: mentioning_report.id)
-      new_mention.save!
+      new_mention.save
     end
   end
 
