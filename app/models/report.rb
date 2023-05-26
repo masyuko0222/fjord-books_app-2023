@@ -23,8 +23,6 @@ class Report < ApplicationRecord
     created_at.to_date
   end
 
-  # self.invalid?でtransactionブロックに入る前にバリデーションの検証ができるが、
-  # 業務エラーより、重要なエラーであるシステムエラーの検知を先に優先するべきなので、バリデーションエラーはrescueで最後に拾い上げる実装にした。
   def save_with_mentioning_reports
     result_to_save = true
 
