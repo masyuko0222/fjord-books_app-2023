@@ -28,7 +28,7 @@ class Report < ApplicationRecord
 
     transaction do
       result_to_save = save && create_new_mentions
-      raise ActiveRecord::Rollback, false unless result_to_save
+      raise ActiveRecord::Rollback unless result_to_save
     end
 
     result_to_save
@@ -40,7 +40,7 @@ class Report < ApplicationRecord
     transaction do
       mentioning_reports.destroy_all
       result_to_save = update(report_params) && create_new_mentions
-      raise ActiveRecord::Rollback, false unless result_to_save
+      raise ActiveRecord::Rollback unless result_to_save
     end
 
     result_to_save
