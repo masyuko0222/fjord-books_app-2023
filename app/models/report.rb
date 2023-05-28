@@ -24,7 +24,7 @@ class Report < ApplicationRecord
   end
 
   def save_with_mentioning_reports
-    result_to_save = true
+    result_to_save = false
 
     transaction do
       result_to_save = save && create_new_mentions
@@ -35,7 +35,7 @@ class Report < ApplicationRecord
   end
 
   def update_with_mentioning_reports(report_params)
-    result_to_save = true
+    result_to_save = false
 
     transaction do
       mentioning_reports.destroy_all
