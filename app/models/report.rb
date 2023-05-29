@@ -27,7 +27,7 @@ class Report < ApplicationRecord
     result_to_save = false
 
     transaction do
-      result_to_save = save && create_new_mentions # createという名だけど、booleanを返すメソッド
+      result_to_save = save && save_new_mentions
       raise ActiveRecord::Rollback unless result_to_save
     end
 
@@ -39,7 +39,7 @@ class Report < ApplicationRecord
 
     transaction do
       mentioning_reports.destroy_all
-      result_to_save = update(report_params) && create_new_mentions
+      result_to_save = update(report_params) && save_new_mentions
       raise ActiveRecord::Rollback unless result_to_save
     end
 
@@ -48,9 +48,9 @@ class Report < ApplicationRecord
 
   private
 
-  def create_new_mentions
+  def save_new_mentions
     new_mentions =
-      fetch_mentioning_reports.each do |mentioning_report|
+      fetch_mentioning_reports.map do |mentioning_report|
         new_mention = Mention.new(mention_from_id: id, mention_to_id: mentioning_report.id)
         new_mention.save
       end
