@@ -1,0 +1,12 @@
+<div class="mentions-container">
+  <% if report.mentioned_reports.any? %>
+    <strong><%= t('views.shared.mentions.index', report: Report.model_name.human) %></strong>
+    <ul>
+      <% report.mentioned_reports.order(:id).each do |mentioned_report| %>
+        <li>
+          <%= link_to mentioned_report.title, mentioned_report %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
