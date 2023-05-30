@@ -49,13 +49,9 @@ class Report < ApplicationRecord
   private
 
   def save_new_mentions
-    new_mentions =
-      fetch_mentioning_reports.map do |mentioning_report|
-        new_mention = Mention.new(mention_from_id: id, mention_to_id: mentioning_report.id)
-        new_mention.save
-      end
-
-    new_mentions.all?
+    fetch_mentioning_reports.all? do |mentioning_report|
+      Mention.new(mention_from_id: id, mention_to_id: mentioning_report.id).save
+    end
   end
 
   def fetch_mentioning_reports
