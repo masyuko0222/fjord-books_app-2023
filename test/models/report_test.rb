@@ -20,7 +20,6 @@ class ReportTest < ActiveSupport::TestCase
   test 'created_on should return Date object' do
     report = reports(:alice_report)
 
-
     assert_instance_of(Date, report.created_on)
   end
 end
