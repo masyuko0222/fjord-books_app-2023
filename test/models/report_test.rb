@@ -25,4 +25,14 @@ class ReportTest < ActiveSupport::TestCase
 
     assert_equal('Fri, 26 May 2023'.to_date, @report.created_on)
   end
+
+  test 'save_mentions should save new mentions scanned from report content without own id' do
+    mention_regexp = %r{http://localhost:3000/reports/(\d+)}
+
+    @report.content = "I am http://localhost:3000/reports/#{@report.id}. http://localhost:3000/reports/2 is good. http://localhost:3000/reports/3 is normal. http://localhost:3000/reports/4 is bad"
+
+    @report.send(:save_mentions)
+
+    assert_equal([2,3,4], @report.mentioning_report_ids)
+  end
 end
