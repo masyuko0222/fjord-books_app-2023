@@ -29,7 +29,13 @@ class ReportTest < ActiveSupport::TestCase
   test 'save_mentions should save new mentions scanned from report content without own id' do
     mention_regexp = %r{http://localhost:3000/reports/(\d+)}
 
-    @report.content = "I am http://localhost:3000/reports/#{@report.id}. http://localhost:3000/reports/2 is good. http://localhost:3000/reports/3 is normal. http://localhost:3000/reports/4 is bad"
+    @report.content = "http://localhost:3000/reports/2 is good. http://localhost:3000/reports/aaa is normal."
+
+    @report.send(:save_mentions)
+
+    assert_equal([2], @report.mentioning_report_ids)
+
+    @report.content = "I am http://localhost:3000/reports/#{@report.id}. http://localhost:3000/reports/2 is good. http://localhost:3000/reports/3 is normal. http://localhost:3000/reports/4 is bad."
 
     @report.send(:save_mentions)
 
