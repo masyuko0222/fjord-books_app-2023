@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Report, type: :model do
+  before do
+    FactoryBot.reload
+  end
+
   describe "#edit_able?" do
     context "ログインしているユーザーが、レポートの作成者の場合" do
       it "trueを戻り値とする" do
