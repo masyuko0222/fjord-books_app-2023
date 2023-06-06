@@ -25,4 +25,12 @@ RSpec.describe Report, type: :model do
       end
     end
   end
+
+  describe "#created_on" do
+    it "created_atをDateオブジェクトに変換する" do
+      report = FactoryBot.create(:report, created_at: Time.zone.now)
+
+      expect(report.created_on.class).to eq Date
+    end
+  end
 end
