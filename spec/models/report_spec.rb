@@ -42,7 +42,7 @@ RSpec.describe Report, type: :model do
 
     context '日報を新規作成する場合' do
       it '正常な日報URIのみに対して言及すると、言及した日報全てをメンション関係に追加する' do
-        report = FactoryBot.create(:report, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good!")
+        report = FactoryBot.build(:report, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good!")
 
         report.save
 
@@ -52,7 +52,7 @@ RSpec.describe Report, type: :model do
       it '異常な日報URIも含んで言及すると、正常な日報URIのみをメンション関係に追加する' do
         non_exist_report_id = (Report.last.id).to_i + 1
 
-        report = FactoryBot.create(:report, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good! http://localhost:3000/reports/ijou is string. http://localhost:3000/reports/７７７ is zenkaku. http://localhost:3000/reports/#{non_exist_report_id} is not exist.")
+        report = FactoryBot.build(:report, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good! http://localhost:3000/reports/ijou is string. http://localhost:3000/reports/７７７ is zenkaku. http://localhost:3000/reports/#{non_exist_report_id} is not exist.")
 
         report.save
 
@@ -61,7 +61,7 @@ RSpec.describe Report, type: :model do
 
       it '自身の日報URIも含めて言及すると、自身の日報URIは除外してメンション関係に追加する' do
         # 今後letでreportのセットアップをしてもreport_idが重複しないよう、idに100を振る。
-        report_mentioning_self = FactoryBot.create(:report, id: 100, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good! http://localhost:3000/reports/100 is me.")
+        report_mentioning_self = FactoryBot.build(:report, id: 100, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good! http://localhost:3000/reports/100 is me.")
 
         report_mentioning_self.save
 
