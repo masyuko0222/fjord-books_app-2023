@@ -8,10 +8,10 @@ RSpec.describe Report, type: :model do
     FactoryBot.reload
   end
 
-  describe '#edit_able?' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:report) { FactoryBot.create(:report, user:) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:report) { FactoryBot.create(:report, user:) }
 
+  describe '#edit_able?' do
     context 'ログインしているユーザーが、レポートの作成者の場合' do
       it 'trueを戻り値とする' do
         expect(report.editable?(user)).to be_truthy
@@ -20,7 +20,7 @@ RSpec.describe Report, type: :model do
 
     context 'ログインしているユーザーが、レポートの作成者ではない場合' do
       it 'falseを戻り値とする' do
-        other_user = FactoryBot.create(:user, email: "otheruser@example.com")
+        other_user = FactoryBot.create(:user, :other_user)
         report_created_by_other_user = FactoryBot.create(:report, user: other_user)
 
         expect(report_created_by_other_user.editable?(user)).to be_falsey
@@ -29,9 +29,6 @@ RSpec.describe Report, type: :model do
   end
 
   describe '#created_on' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:report) { FactoryBot.create(:report, user:) }
-
     it 'created_atをDateオブジェクトに変換する' do
       expect(report.created_on.class).to eq Date
     end
