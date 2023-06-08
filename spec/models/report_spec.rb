@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'debug'
 
 require 'rails_helper'
 require 'debug'
@@ -37,41 +38,36 @@ RSpec.describe Report, type: :model do
   describe '#save_mentions called after save' do
     let!(:mentioning_report_2) { FactoryBot.create(:report, id:2) }
     let!(:mentioning_report_3) { FactoryBot.create(:report, id:3) }
+    let!(:mentioning_report_4) { FactoryBot.create(:report, id:4) }
 
     context '日報を新規作成する場合' do
       it '正常な日報URIのみに対して言及すると、言及した日報全てをメンション関係に追加する' do
-        report = FactoryBot.build(:report, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good!")
-
+        report= FactoryBot.build(:report, :report_mentioning_id_2_and_3 )
         report.save
 
         expect(report.mentioning_report_ids).to eq [2,3]
       end
 
       it '異常な日報URIも含んで言及すると、正常な日報URIのみをメンション関係に追加する' do
-        non_exist_report_id = (Report.last.id).to_i + 1
-
-        report = FactoryBot.build(:report, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good! http://localhost:3000/reports/ijou is string. http://localhost:3000/reports/７７７ is zenkaku. http://localhost:3000/reports/#{non_exist_report_id} is not exist.")
-
+        report = FactoryBot.build(:report, :report_mentioning_id_2_and_3_with_abnormal_ids )
         report.save
 
         expect(report.mentioning_report_ids).to eq [2,3]
       end
 
       it '自身の日報URIも含めて言及すると、自身の日報URIは除外してメンション関係に追加する' do
-        # 今後letでreportのセットアップをしてもreport_idが重複しないよう、idに100を振る。
-        report_mentioning_self = FactoryBot.build(:report, id: 100, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good! http://localhost:3000/reports/100 is me.")
+        report= FactoryBot.build(:report, :report_mentioning_reportself)
+        report.save
 
-        report_mentioning_self.save
-
-        expect(report_mentioning_self.mentioning_report_ids).to eq [2,3]
+        expect(report.mentioning_report_ids).to eq [2,3]
       end
     end
 
     context '日報を更新する場合' do
       it '既存のメンション関係を全て削除後、新しいメンション関係を追加する' do
-        report = FactoryBot.create(:report, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good!")
+        report = FactoryBot.create(:report, :report_mentioning_id_2_and_3)
 
-        expect{ report.update(content: 'No mentions') }.to change{ report.mentioning_reports.count }.from(2).to(0)
+        expect{ report.update(content: 'http://localhost:3000/reports/4') }.to change{ report.reload.mentioning_report_ids }.from([2,3]).to([4])
       end
     end
   end
