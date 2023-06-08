@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'debug'
 
 RSpec.describe Report, type: :model do
   before do
@@ -66,6 +67,14 @@ RSpec.describe Report, type: :model do
         report_mentioning_self.save
 
         expect(report_mentioning_self.mentioning_report_ids).to eq [2,3]
+      end
+    end
+
+    context '日報を更新する場合' do
+      it '既存のメンション関係を全て削除後、新しいメンション関係を追加する' do
+        report = FactoryBot.create(:report, content: "http://localhost:3000/reports/2 is bad. http://localhost:3000/reports/3 is good!")
+
+        expect{ report.update(content: 'No mentions') }.to change{ report.mentioning_reports.count }.from(2).to(0)
       end
     end
   end
