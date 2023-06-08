@@ -16,9 +16,9 @@ RSpec.describe User, type: :model do
 
     context 'Eメールアドレスしか登録していない場合' do
       it 'Eメールアドレスを戻り値とする' do
-        user = FactoryBot.build(:user_without_name)
+        user_without_name = FactoryBot.build(:user, :user_without_name)
 
-        expect(user.name_or_email).to eq 'tester1@example.com'
+        expect(user_without_name.name_or_email).to eq 'tester1@example.com'
       end
     end
   end
