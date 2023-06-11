@@ -3,7 +3,17 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test '#name_or_email should return name if user has name' do
+    user = FactoryBot.build(:user)
+    user.name = 'Alice'
+
+    assert_equal 'Alice', user.name_or_email
+  end
+
+  test '#name_or_email should return email if user does not have name' do
+    user = FactoryBot.build(:user)
+    user.name = nil
+
+    assert_equal 'alice@example.com', user.name_or_email
+  end
 end
