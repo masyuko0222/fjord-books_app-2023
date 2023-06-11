@@ -39,14 +39,14 @@ class ReportTest < ActiveSupport::TestCase
   test '#save_mentions should destory exisiting mentioning relationships and save new mentioning relationships after saving when a report is updated' do
     report10 = FactoryBot.create(:report, id: 10)
     report11 = FactoryBot.create(:report, id: 11)
-
     report12 = FactoryBot.create(:report, id: 12)
     report13 = FactoryBot.create(:report, id: 13)
 
     report = FactoryBot.create(:report, content: 'http://localhost:3000/reports/10 is good. http://localhost:3000/reports/11 is bad.')
 
-    new_content = 'http://localhost:3000/reports/12 is good. http://localhost:3000/reports/13 is bad.'
-    report.update(content: new_content)
+    assert_equal [10, 11], report.mentioning_report_ids
+
+    report.update(content: 'http://localhost:3000/reports/12 is good. http://localhost:3000/reports/13 is bad.')
 
     assert_equal [12, 13], report.reload.mentioning_report_ids
   end
