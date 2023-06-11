@@ -6,6 +6,7 @@ class UserTest < ActiveSupport::TestCase
   test '#name_or_email should return name if user has name' do
     user = FactoryBot.build(:user)
     user.name = 'Alice'
+    user.email = 'alice@example.com'
 
     assert_equal 'Alice', user.name_or_email
   end
@@ -13,6 +14,7 @@ class UserTest < ActiveSupport::TestCase
   test '#name_or_email should return email if user does not have name' do
     user = FactoryBot.build(:user)
     user.name = nil
+    user.email = 'alice@example.com'
 
     assert_equal 'alice@example.com', user.name_or_email
   end
