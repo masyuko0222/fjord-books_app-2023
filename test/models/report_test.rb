@@ -17,4 +17,10 @@ class ReportTest < ActiveSupport::TestCase
 
     assert_not report.editable?(target_user)
   end
+
+  test '#created_on should convert created_at that is attribute of Report to Date object' do
+    report = FactoryBot.create(:report)
+
+    assert_equal Date, report.created_on.class
+  end
 end
