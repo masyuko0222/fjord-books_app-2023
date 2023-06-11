@@ -51,7 +51,9 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#save_mentions should save new mentioning relationships without mention to reportself after saving' do
-    report = FactoryBot.create(:report, id: 99, content: 'http://localhost:3000/reports/10 is good. http://localhost:3000/reports/11 is bad. http://localhost:3000/reports/99 is me.')
+    # rubucop対策のため、ここだけcontentを別で定義
+    content_mentioning_reportself = 'http://localhost:3000/reports/10 is good. http://localhost:3000/reports/11 is bad. http://localhost:3000/reports/99 is me.'
+    report = FactoryBot.create(:report, id: 99, content: content_mentioning_reportself)
 
     assert_equal [10, 11], report.mentioning_report_ids
   end
