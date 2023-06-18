@@ -4,9 +4,7 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   test '#name_or_email should return name if user has name' do
-    user = FactoryBot.build(:user)
-    user.name = 'Alice'
-    user.email = 'alice@example.com'
+    user = FactoryBot.build(:user, name: 'Alice', email: 'alice@example.com')
 
     assert_equal 'Alice', user.name_or_email
   end
