@@ -4,10 +4,10 @@ require 'test_helper'
 
 class ReportTest < ActiveSupport::TestCase
   setup do
-    FactoryBot.create(:report, id: 10)
-    FactoryBot.create(:report, id: 11)
-    FactoryBot.create(:report, id: 12)
-    FactoryBot.create(:report, id: 13)
+    @report1 = FactoryBot.create(:report)
+    @report2 = FactoryBot.create(:report)
+    @report3 = FactoryBot.create(:report)
+    @report4 = FactoryBot.create(:report)
   end
 
   test '#editable? should return true when target user tries to edit a report created by target user' do
@@ -19,7 +19,7 @@ class ReportTest < ActiveSupport::TestCase
 
   test '#editable? should return false when target user tries to edit a report created by another user' do
     target_user = FactoryBot.create(:user)
-    another_user = User.create(email: 'bob@example.com', name: 'Bob', password: 'password')
+    another_user = FactoryBot.create(:another_user)
     report = FactoryBot.create(:report, user: another_user)
 
     assert_not report.editable?(target_user)
@@ -32,28 +32,39 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#save_mentions should save new mentioning relationships after saving when a new report is created with mentions' do
-    report = FactoryBot.build(:report)
-    report.content = 'http://localhost:3000/reports/10 is good. http://localhost:3000/reports/11 is bad.'
-    report.save
+    report = FactoryBot.create(:report, content: <<~TEXT)
+      http://localhost:3000/reports/#{@report1.id} is good.
+      http://localhost:3000/reports/#{@report2.id} is bad."
+    TEXT
 
-    assert_equal [10, 11], report.mentioning_report_ids
+    assert_equal [@report1.id, @report2.id], report.mentioning_report_ids
   end
 
   test '#save_mentions should destory exisiting mentioning relationships and save new mentioning relationships after saving when a report is updated' do
-    report = FactoryBot.create(:report, content: 'http://localhost:3000/reports/10 is good. http://localhost:3000/reports/11 is bad.')
+    report = FactoryBot.create(:report, content: <<~TEXT)
+      http://localhost:3000/reports/#{@report1.id} is good.
+      http://localhost:3000/reports/#{@report2.id} is bad.
+    TEXT
 
-    assert_equal [10, 11], report.mentioning_report_ids
+    assert_equal [@report1.id, @report2.id], report.mentioning_report_ids
 
-    report.update(content: 'http://localhost:3000/reports/12 is good. http://localhost:3000/reports/13 is bad.')
+    report.update(content: <<~TEXT)
+      http://localhost:3000/reports/#{@report3.id} is good.
+      http://localhost:3000/reports/#{@report4.id} is bad.
+    TEXT
 
-    assert_equal [12, 13], report.reload.mentioning_report_ids
+    assert_equal [@report3.id, @report4.id], report.reload.mentioning_report_ids
   end
 
   test '#save_mentions should save new mentioning relationships without mention to reportself after saving' do
-    # rubucop対策のため、ここだけcontentを別で定義
-    content_mentioning_reportself = 'http://localhost:3000/reports/10 is good. http://localhost:3000/reports/11 is bad. http://localhost:3000/reports/99 is me.'
-    report = FactoryBot.create(:report, id: 99, content: content_mentioning_reportself)
+    report = FactoryBot.create(:report)
 
-    assert_equal [10, 11], report.mentioning_report_ids
+    report.update(content: <<~TEXT)
+      http://localhost:3000/reports/#{@report1.id} is good.
+      http://localhost:3000/reports/#{@report2.id} is bad.
+      http://localhost:3000/reports/#{report.id} is me.
+    TEXT
+
+    assert_equal [@report1.id, @report2.id], report.mentioning_report_ids
   end
 end
