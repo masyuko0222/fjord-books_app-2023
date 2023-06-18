@@ -29,7 +29,7 @@ class ReportTest < ActiveSupport::TestCase
     report = FactoryBot.create(:report, created_at: Time.zone.parse('2023-01-01'))
 
     travel_to Date.new(2023, 1, 1) do
-      assert_equal Date.today, report.created_on
+      assert_equal Time.zone.today, report.created_on
     end
   end
 
