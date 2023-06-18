@@ -26,9 +26,11 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#created_on should convert created_at that is attribute of Report to Date object' do
-    report = FactoryBot.create(:report)
+    report = FactoryBot.create(:report, created_at: Time.zone.parse('2023-01-01'))
 
-    assert_equal Date, report.created_on.class
+    travel_to Date.new(2023, 1, 1) do
+      assert_equal Date.today, report.created_on
+    end
   end
 
   test '#save_mentions should save new mentioning relationships after saving when a new report is created with mentions' do
