@@ -31,23 +31,27 @@ class ReportsTest < ApplicationSystemTestCase
     report = FactoryBot.create(:report, user: @user)
 
     visit edit_report_url(report.id)
-    fill_in 'タイトル', with: 'Updated Title'
-    fill_in '内容', with: 'Updated Content'
+    fill_in 'タイトル', with: 'アップデートしてみました'
+    fill_in '内容', with: 'アップデートをした文章です。'
     click_button '更新する'
 
     assert_text '日報が更新されました'
-    assert_text 'Updated Title'
-    assert_text 'Updated Content'
+    assert_text 'アップデートしてみました'
+    assert_text 'アップデートをした文章です。'
     assert_text "作成者: #{@user.name}"
   end
 
   test 'destory a report' do
-    report = FactoryBot.create(:report, user: @user)
+    report = FactoryBot.create(:report, user: @user, title: '削除予定です', content: '削除をする日報です。')
 
     visit report_url(report.id)
+
+    assert_text '削除予定です'
+    assert_text '削除をする日報です。'
 
     click_button 'この日報を削除'
 
     assert_text '日報が削除されました。'
+    assert_not Report.exists?(report.id)
   end
 end
