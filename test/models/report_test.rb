@@ -19,7 +19,7 @@ class ReportTest < ActiveSupport::TestCase
 
   test '#editable? should return false when target user tries to edit a report created by another user' do
     target_user = FactoryBot.create(:user)
-    another_user = FactoryBot.create(:another_user)
+    another_user = FactoryBot.create(:user, email: 'bob@example.com', name: 'Bob')
     report = FactoryBot.create(:report, user: another_user)
 
     assert_not report.editable?(target_user)
@@ -28,9 +28,7 @@ class ReportTest < ActiveSupport::TestCase
   test '#created_on should convert created_at that is attribute of Report to Date object' do
     report = FactoryBot.create(:report, created_at: Time.zone.parse('2023-01-01'))
 
-    travel_to Date.new(2023, 1, 1) do
-      assert_equal Time.zone.today, report.created_on
-    end
+    assert_equal Date.new(2023, 1, 1), report.created_on
   end
 
   test '#save_mentions should save new mentioning relationships after saving when a new report is created with mentions' do
@@ -39,7 +37,7 @@ class ReportTest < ActiveSupport::TestCase
       http://localhost:3000/reports/#{@report2.id} is bad."
     TEXT
 
-    assert_equal [@report1.id, @report2.id], report.mentioning_report_ids
+    assert_equal [@report1, @report2], report.mentioning_reports
   end
 
   test '#save_mentions should destory exisiting mentioning relationships and save new mentioning relationships after saving when a report is updated' do
@@ -48,14 +46,14 @@ class ReportTest < ActiveSupport::TestCase
       http://localhost:3000/reports/#{@report2.id} is bad.
     TEXT
 
-    assert_equal [@report1.id, @report2.id], report.mentioning_report_ids
+    assert_equal [@report1, @report2], report.mentioning_reports
 
     report.update(content: <<~TEXT)
       http://localhost:3000/reports/#{@report3.id} is good.
       http://localhost:3000/reports/#{@report4.id} is bad.
     TEXT
 
-    assert_equal [@report3.id, @report4.id], report.reload.mentioning_report_ids
+    assert_equal [@report3, @report4], report.reload.mentioning_reports
   end
 
   test '#save_mentions should save new mentioning relationships without mention to reportself after saving' do
@@ -67,6 +65,6 @@ class ReportTest < ActiveSupport::TestCase
       http://localhost:3000/reports/#{report.id} is me.
     TEXT
 
-    assert_equal [@report1.id, @report2.id], report.mentioning_report_ids
+    assert_equal [@report1, @report2], report.mentioning_reports
   end
 end

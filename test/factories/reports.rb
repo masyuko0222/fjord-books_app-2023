@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :report do
-    title { 'Test Title' }
-    content { 'Test Content' }
+    title { 'This is my report.' }
+    content { 'Did you like my report?' }
     association :user
   end
 end
