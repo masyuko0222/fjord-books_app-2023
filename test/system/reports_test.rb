@@ -51,6 +51,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_button 'この日報を削除'
 
+    assert_no_content '削除予定です'
     assert_text '日報が削除されました。'
     assert_current_path reports_path
     assert_not Report.exists?(report.id)
