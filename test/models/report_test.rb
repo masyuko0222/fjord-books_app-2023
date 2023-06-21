@@ -19,7 +19,7 @@ class ReportTest < ActiveSupport::TestCase
 
   test '#editable? should return false when target user tries to edit a report created by another user' do
     target_user = FactoryBot.create(:user)
-    another_user = FactoryBot.create(:user, email: 'bob@example.com', name: 'Bob')
+    another_user = FactoryBot.create(:user)
     report = FactoryBot.create(:report, user: another_user)
 
     assert_not report.editable?(target_user)
