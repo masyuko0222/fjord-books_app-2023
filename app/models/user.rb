@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :uid, uniqueness: { scope: :provider }
+
   has_many :reports, dependent: :destroy
   has_many :comments, dependent: :destroy
 
