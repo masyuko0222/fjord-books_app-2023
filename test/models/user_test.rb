@@ -4,10 +4,12 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @auth = OpenStruct.new(
+    auth = Struct.new(:provider, :uid, :info)
+    info = Struct.new(:email)
+    @auth = auth.new(
       provider: 'github',
       uid: '123456',
-      info: OpenStruct.new(email: 'auth@example.com')
+      info: info.new(email: 'auth@example.com')
     )
   end
 
