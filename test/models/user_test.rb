@@ -22,7 +22,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'find_or_create_from_omniauth #find' do
-    exist_user = User.create!(provider: 'github', uid: '123456', email: 'existing@example.com', password: 'password')
+    exist_user = User.create!(provider: 'github', uid: '123456', email: 'something@example.com', password: 'some_password') # check only :provider, :uid
     user = User.find_or_create_from_omniauth(@auth)
 
     assert_equal exist_user, user
