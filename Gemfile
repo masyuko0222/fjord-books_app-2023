@@ -59,7 +59,7 @@ end
 gem 'dotenv-rails'
 
 # OAuth
-gem 'omniauth', '~> 2.1.2'
+gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 

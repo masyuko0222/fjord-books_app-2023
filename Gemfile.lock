@@ -371,7 +371,7 @@ DEPENDENCIES
   jbuilder
   kaminari
   letter_opener_web
-  omniauth (~> 2.1.2)
+  omniauth
   omniauth-github
   omniauth-rails_csrf_protection
   puma (~> 5.0)
