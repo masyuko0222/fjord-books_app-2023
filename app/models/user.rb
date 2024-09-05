@@ -2,7 +2,9 @@
 
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[github]
+
+  validates :uid, uniqueness: { scope: :provider }
 
   has_many :reports, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -13,5 +15,18 @@ class User < ApplicationRecord
 
   def name_or_email
     name.presence || email
+  end
+
+  class << self
+    def find_or_create_from_omniauth(auth)
+      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        user.email = auth.info.email
+        user.password = Devise.friendly_token[0, 20]
+      end
+    end
+
+    def create_random_uid
+      SecureRandom.uuid
+    end
   end
 end
