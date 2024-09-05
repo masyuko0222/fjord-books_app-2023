@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :omniauthable
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[github]
 
   validates :uid, uniqueness: { scope: %i[email provider] }
 
