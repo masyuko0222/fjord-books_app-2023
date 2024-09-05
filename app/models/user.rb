@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[github]
 
-  validates :uid, uniqueness: { scope: %i[email provider] }
+  validates :uid, uniqueness: { scope: :provider }
 
   has_many :reports, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -23,6 +23,10 @@ class User < ApplicationRecord
         user.email = auth.info.email
         user.password = Devise.friendly_token[0, 20]
       end
+    end
+
+    def create_random_uid
+      SecureRandom.uuid
     end
   end
 end
